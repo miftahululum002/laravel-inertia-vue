@@ -8,19 +8,18 @@ use Inertia\Inertia;
 
 class BlogController extends Controller
 {
+
+    private $_directory = 'Blogs';
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $blogs = Blog::all();
-
-        return Inertia::render(
-            'Blogs/Index',
-            [
-                'blogs' => $blogs
-            ]
-        );
+        $data = [
+            'blogs' => $blogs
+        ];
+        return Inertia::render($this->_directory . '/Index', $data);
     }
 
     /**
@@ -28,9 +27,7 @@ class BlogController extends Controller
      */
     public function create()
     {
-        return Inertia::render(
-            'Blogs/Create'
-        );
+        return Inertia::render($this->_directory . '/Create');
     }
 
     /**
@@ -39,15 +36,14 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:255',
-            'content' => 'required'
+            'title'     => 'required|string|max:255',
+            'content'   => 'required'
         ]);
         Blog::create([
-            'title' => $request->title,
-            'content' => $request->content
+            'title'     => $request->title,
+            'content'   => $request->content
         ]);
         sleep(1);
-
         return redirect()->route('blogs.index')->with('message', 'Blog Created Successfully');
     }
 
@@ -64,12 +60,10 @@ class BlogController extends Controller
      */
     public function edit(Blog $blog)
     {
-        return Inertia::render(
-            'Blogs/Edit',
-            [
-                'blog' => $blog
-            ]
-        );
+        $data = [
+            'blog' => $blog
+        ];
+        return Inertia::render($this->_directory . '/Edit', $data);
     }
 
     /**
@@ -86,7 +80,6 @@ class BlogController extends Controller
         $blog->content = $request->content;
         $blog->save();
         sleep(1);
-
         return redirect()->route('blogs.index')->with('message', 'Blog Updated Successfully');
     }
 
@@ -97,7 +90,6 @@ class BlogController extends Controller
     {
         $blog->delete();
         sleep(1);
-
         return redirect()->route('blogs.index')->with('message', 'Blog Delete Successfully');
     }
 }
