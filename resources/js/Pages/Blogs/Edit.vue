@@ -4,7 +4,7 @@ import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import InputError from "@/Components/InputError.vue";
 import PrimaryButton from "@/Components/PrimaryButton.vue";
-import { Head, useForm } from "@inertiajs/vue3";
+import { Link, Head, useForm } from "@inertiajs/vue3";
 
 const props = defineProps({
     blog: {
@@ -78,13 +78,25 @@ const submit = () => {
                                     {{ form.errors.content }}
                                 </div>
                             </div>
-                            <PrimaryButton
-                                type="submit"
-                                :class="{ 'opacity-25': form.processing }"
-                                :disabled="form.processing"
-                            >
-                                Submit
-                            </PrimaryButton>
+                            <div class="flex">
+                                <PrimaryButton
+                                    type="submit"
+                                    class="rounded-none"
+                                    :class="{
+                                        'opacity-25 rounded-none':
+                                            form.processing,
+                                    }"
+                                    :disabled="form.processing"
+                                >
+                                    Simpan
+                                </PrimaryButton>
+                                <Link
+                                    :href="route('blogs.index')"
+                                    class="px-4 py-2 bg-slate-300 text-white rounded-none"
+                                >
+                                    Kembali
+                                </Link>
+                            </div>
                         </form>
                     </div>
                 </div>

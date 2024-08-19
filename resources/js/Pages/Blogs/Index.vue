@@ -33,7 +33,9 @@ function destroy(id) {
                     <div class="p-6 bg-white border-b border-gray-200">
                         <div class="mb-2">
                             <Link :href="route('blogs.create')">
-                                <PrimaryButton>Tambah Blog</PrimaryButton>
+                                <PrimaryButton class="rounded-none"
+                                    >Tambah Blog</PrimaryButton
+                                >
                             </Link>
                         </div>
                         <div
